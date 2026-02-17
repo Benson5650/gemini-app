@@ -1,0 +1,16 @@
+{
+  "name": "gemini-app",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "tauri": "tauri"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2"
+  },
+  "dependencies": {
+    "@tauri-apps/plugin-autostart": "^2.5.1",
+    "tauri-plugin-store-api": "^0.0.0"
+  }
+}

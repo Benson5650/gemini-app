@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>設定 - Gemini App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #131314;
+            --bg-secondary: #1e1f20;
+            --bg-tertiary: #282a2c;
+            --text-primary: #e3e3e3;
+            --text-secondary: #9aa0a6;
+            --accent-blue: #8ab4f8;
+            --accent-purple: #c58af9;
+            --border-color: #3c4043;
+            --hover-bg: rgba(138, 180, 248, 0.08);
+            --focus-ring: rgba(138, 180, 248, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', 'Google Sans', 'Roboto', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        header h1 {
+            font-size: 24px;
+            font-weight: 500;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .settings-section {
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+            padding-left: 4px;
+        }
+
+        .settings-group {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .setting-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.15s ease;
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        .setting-item:hover {
+            background: var(--hover-bg);
+        }
+
+        .setting-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .setting-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .setting-description {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Toggle Switch */
+        .toggle {
+            position: relative;
+            width: 48px;
+            height: 28px;
+            flex-shrink: 0;
+        }
+
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            border-radius: 28px;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
+            background-color: var(--text-secondary);
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .toggle input:checked + .toggle-slider {
+            background-color: var(--accent-blue);
+            border-color: var(--accent-blue);
+        }
+
+        .toggle input:checked + .toggle-slider:before {
+            transform: translateX(20px);
+            background-color: var(--bg-primary);
+        }
+
+        .toggle input:focus + .toggle-slider {
+            box-shadow: 0 0 0 3px var(--focus-ring);
+        }
+
+        /* Select Dropdown */
+        .select-wrapper {
+            position: relative;
+            min-width: 140px;
+        }
+
+        select {
+            appearance: none;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 13px;
+            padding: 8px 32px 8px 12px;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        select:hover {
+            border-color: var(--accent-blue);
+        }
+
+        select:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px var(--focus-ring);
+        }
+
+        .select-wrapper::after {
+            content: "";
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 5px solid transparent;
+            border-top-color: var(--text-secondary);
+            pointer-events: none;
+        }
+
+        /* Number Input */
+        input[type="number"] {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 13px;
+            padding: 8px 12px;
+            width: 80px;
+            text-align: center;
+            transition: all 0.15s ease;
+        }
+
+        input[type="number"]:hover {
+            border-color: var(--accent-blue);
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px var(--focus-ring);
+        }
+
+        /* Text Input */
+        input[type="text"] {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 13px;
+            padding: 8px 12px;
+            width: 200px;
+            transition: all 0.15s ease;
+        }
+
+        input[type="text"]:hover {
+            border-color: var(--accent-blue);
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px var(--focus-ring);
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        button {
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 10px 24px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--accent-blue);
+        }
+
+        .btn-secondary:hover {
+            background: var(--hover-bg);
+            border-color: var(--accent-blue);
+        }
+
+        .btn-primary {
+            background: var(--accent-blue);
+            border: none;
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            background: #a8c7fa;
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            padding: 12px 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Version Info */
+        .version-info {
+            text-align: center;
+            margin-top: 32px;
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚙️ 設定</h1>
+        </header>
+
+        <!-- 基本設定 -->
+        <div class="settings-section">
+            <div class="section-title">基本設定</div>
+            <div class="settings-group">
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">開機自動啟動</div>
+                        <div class="setting-description">系統開機時自動啟動應用程式</div>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" id="autostart">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">預設啟動視窗</div>
+                        <div class="setting-description">啟動應用程式時顯示的視窗</div>
+                    </div>
+                    <div class="select-wrapper">
+                        <select id="default_window">
+                            <option value="normal">正常視窗</option>
+                            <option value="panel">側邊欄</option>
+                            <option value="none">不顯示</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 行為設定 -->
+        <div class="settings-section">
+            <div class="section-title">行為設定</div>
+            <div class="settings-group">
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">正常視窗自動載入對話</div>
+                        <div class="setting-description">開啟正常視窗時自動點擊最新對話</div>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" id="normal_auto_load">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">側邊欄自動載入對話</div>
+                        <div class="setting-description">開啟側邊欄時自動點擊最新對話</div>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" id="panel_auto_load">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">系統匣左鍵點擊行為</div>
+                        <div class="setting-description">點擊系統匣圖示時執行的動作</div>
+                    </div>
+                    <div class="select-wrapper">
+                        <select id="tray_click">
+                            <option value="panel">切換側邊欄</option>
+                            <option value="normal">開啟正常視窗</option>
+                            <option value="settings">開啟設定</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 外觀設定 -->
+        <div class="settings-section">
+            <div class="section-title">外觀設定</div>
+            <div class="settings-group">
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">側邊欄寬度</div>
+                        <div class="setting-description">側邊欄視窗的像素寬度 (300-600)</div>
+                    </div>
+                    <input type="number" id="panel_width" min="300" max="600" step="10">
+                </div>
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">動畫速度</div>
+                        <div class="setting-description">側邊欄滑動動畫速度</div>
+                    </div>
+                    <div class="select-wrapper">
+                        <select id="animation_speed">
+                            <option value="instant">即時</option>
+                            <option value="fast">快速</option>
+                            <option value="normal">正常</option>
+                            <option value="slow">緩慢</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 快捷鍵設定 -->
+        <div class="settings-section">
+            <div class="section-title">快捷鍵設定</div>
+            <div class="settings-group">
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">側邊欄快捷鍵</div>
+                        <div class="setting-description">切換側邊欄的全局快捷鍵 (需重啟生效)</div>
+                    </div>
+                    <input type="text" id="hotkey_panel" readonly>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">正常視窗快捷鍵</div>
+                        <div class="setting-description">切換正常視窗的全局快捷鍵 (需重啟生效)</div>
+                    </div>
+                    <input type="text" id="hotkey_normal" readonly>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">啟用 Ctrl+N 新增對話</div>
+                        <div class="setting-description">在網頁內攔截 Ctrl+N 觸發新增對話</div>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" id="enable_ctrl_n">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- 進階設定 -->
+        <div class="settings-section">
+            <div class="section-title">進階設定</div>
+            <div class="settings-group">
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">Gemini URL</div>
+                        <div class="setting-description">載入的 Gemini 網址</div>
+                    </div>
+                    <input type="text" id="gemini_url" style="width: 280px;">
+                </div>
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-label">關閉時隱藏到系統匣</div>
+                        <div class="setting-description">關閉視窗時隱藏到系統匣而非退出程式</div>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" id="close_to_tray">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button class="btn-secondary" id="btn-reset">重設為預設值</button>
+            <button class="btn-primary" id="btn-save">儲存設定</button>
+        </div>
+
+        <div class="version-info">
+            Gemini App v0.1.0
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script type="module">
+        const { invoke } = window.__TAURI__.core;
+
+        let currentSettings = {};
+
+        // 載入設定
+        async function loadSettings() {
+            try {
+                currentSettings = await invoke('get_settings');
+                applySettingsToUI(currentSettings);
+            } catch (e) {
+                showToast('載入設定失敗: ' + e);
+            }
+        }
+
+        // 將設定應用到 UI
+        function applySettingsToUI(settings) {
+            document.getElementById('autostart').checked = settings.autostart;
+            document.getElementById('default_window').value = settings.default_window;
+            document.getElementById('normal_auto_load').checked = settings.normal_auto_load_conversation;
+            document.getElementById('panel_auto_load').checked = settings.panel_auto_load_conversation;
+            document.getElementById('tray_click').value = settings.tray_click_action;
+            document.getElementById('panel_width').value = settings.panel_width;
+            document.getElementById('animation_speed').value = settings.animation_speed;
+            document.getElementById('hotkey_panel').value = settings.hotkey_panel;
+            document.getElementById('hotkey_normal').value = settings.hotkey_normal;
+            document.getElementById('enable_ctrl_n').checked = settings.enable_ctrl_n;
+            document.getElementById('gemini_url').value = settings.gemini_url;
+            document.getElementById('close_to_tray').checked = settings.close_to_tray;
+        }
+
+        // 從 UI 收集設定
+        function collectSettingsFromUI() {
+            return {
+                autostart: document.getElementById('autostart').checked,
+                default_window: document.getElementById('default_window').value,
+                normal_auto_load_conversation: document.getElementById('normal_auto_load').checked,
+                panel_auto_load_conversation: document.getElementById('panel_auto_load').checked,
+                tray_click_action: document.getElementById('tray_click').value,
+                panel_width: parseInt(document.getElementById('panel_width').value) || 420,
+                animation_speed: document.getElementById('animation_speed').value,
+                hotkey_panel: document.getElementById('hotkey_panel').value,
+                hotkey_normal: document.getElementById('hotkey_normal').value,
+                enable_ctrl_n: document.getElementById('enable_ctrl_n').checked,
+                gemini_url: document.getElementById('gemini_url').value,
+                close_to_tray: document.getElementById('close_to_tray').checked,
+            };
+        }
+
+        // 儲存設定
+        async function saveSettings() {
+            try {
+                const settings = collectSettingsFromUI();
+                await invoke('save_settings', { settings });
+                currentSettings = settings;
+                showToast('設定已儲存');
+            } catch (e) {
+                showToast('儲存失敗: ' + e);
+            }
+        }
+
+        // 重設為預設值
+        async function resetSettings() {
+            try {
+                const defaults = await invoke('get_default_settings');
+                applySettingsToUI(defaults);
+                showToast('已重設為預設值（尚未儲存）');
+            } catch (e) {
+                showToast('重設失敗: ' + e);
+            }
+        }
+
+        // 顯示提示訊息
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // 綁定事件
+        document.getElementById('btn-save').addEventListener('click', saveSettings);
+        document.getElementById('btn-reset').addEventListener('click', resetSettings);
+
+        // 載入設定
+        loadSettings();
+    </script>
+</body>
+</html>

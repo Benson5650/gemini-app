@@ -1,0 +1,148 @@
+# ===========================
+# Tauri / Rust
+# ===========================
+src-tauri/target/
+src-tauri/gen/
+src-tauri/WixTools/
+
+# Rust
+**/*.rs.bk
+*.pdb
+
+# ===========================
+# Node.js / npm / yarn / pnpm
+# ===========================
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# npm
+npm-debug.log*
+package-lock.json
+
+# yarn
+yarn-debug.log*
+yarn-error.log*
+.yarn/
+.pnp.*
+
+# pnpm
+pnpm-debug.log*
+.pnpm-store/
+
+# ===========================
+# Logs
+# ===========================
+logs/
+*.log
+lerna-debug.log*
+
+# ===========================
+# Build outputs
+# ===========================
+build/
+out/
+.next/
+.nuxt/
+.cache/
+
+# ===========================
+# OS Files
+# ===========================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# ===========================
+# IDE / Editor
+# ===========================
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Visual Studio
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# ===========================
+# Environment & Secrets
+# ===========================
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+secrets/
+
+# ===========================
+# Application Data
+# ===========================
+db.json
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+*.backup
+
+# ===========================
+# Testing
+# ===========================
+coverage/
+.nyc_output/
+*.lcov
+
+# ===========================
+# Misc
+# ===========================
+*.orig
+.eslintcache
+.parcel-cache/
